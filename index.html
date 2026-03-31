@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me · Editorial Story</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Gochi+Hand&family=Long+Cang&family=Playfair+Display:wght@500;600;700&family=Source+Serif+4:wght@400;500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" href="assets/hobbies-desk-sketch.png" as="image" />
+</head>
+<body>
+  <div class="loader-overlay" id="loaderOverlay" role="dialog" aria-modal="true" aria-label="Loading">
+    <div class="loader-card">
+      <div class="loader-welcome">Welcome</div>
+      <div class="loader-bar" aria-hidden="true">
+        <div class="loader-barFill" id="loaderBarFill"></div>
+      </div>
+      <div class="loader-hint" id="loaderHint">Loading…</div>
+      <button class="loader-enter" id="loaderEnter" type="button">
+        Enter
+      </button>
+    </div>
+  </div>
+
+  <header class="site-header" aria-label="Site header">
+    <div class="site-header__inner">
+      <p class="site-kicker">Editorial story</p>
+      <h1 class="site-title">About Me</h1>
+      <p class="site-meta">
+        Scroll to continue <span aria-hidden="true">→</span>
+      </p>
+    </div>
+  </header>
+
+  <main class="stage" aria-label="Story stage">
+    <div class="scroll-space" aria-hidden="true"></div>
+    <div class="rail" id="rail" aria-label="Horizontal story">
+      <section class="slide" data-key="introduction">
+        <div class="slide__inner">
+          <p class="slide__eyebrow">Introduction</p>
+          <h2 class="slide__headline">A quiet place to collect my story.</h2>
+          <div class="slide__intro-poem-swap">
+            <div class="intro-poem-stack">
+              <div class="typing-wrapper slide__body">
+                <p class="slide__intro-poem__line slide__intro-poem__greet">
+                  Hi, I’m the lion who lives between the lines.
+                </p>
+                <p class="slide__intro-poem__line slide__intro-poem__core">
+                  I spend my days collecting stray thoughts and quiet moments, hiding them in the objects scattered on this desk.
+                  <span class="slide__intro-poem__aside">(Don’t worry, I don’t bite—I only code.)</span>
+                </p>
+                <p class="slide__intro-poem__line slide__intro-poem__reflect">
+                  The world out there is loud, but here, everything waits for you.
+                </p>
+                <p class="slide__intro-poem__cta slide__intro-poem__guide">
+                  Hover to find the glow; click to hear the story.
+                </p>
+              </div>
+            </div>
+            <p class="intro-poem-reveal" aria-hidden="true">Oh! You found me.</p>
+          </div>
+        </div>
+        <div class="accent--ring-anchor" aria-hidden="true">
+          <div class="accent accent--ring-waves"></div>
+          <div class="accent accent--ring">
+            <div class="accent--ring__clip">
+              <video
+                class="accent--ring__video"
+                src="kling_20260329_作品_He_is_peek_4311_0.mp4"
+                muted
+                playsinline
+                loop
+                preload="auto"
+              ></video>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-key="about" lang="zh-Hans">
+        <div class="slide__inner">
+          <p class="slide__eyebrow">About</p>
+          <h2 class="slide__headline">Who I am.</h2>
+          <div class="slide__body slide__body--about-cn about-prose">
+            <p class="about-prose__p">
+              深圳大学网新系，一个在逻辑与感性间游走的 <strong class="about-keyword">INFP</strong>。
+            </p>
+            <p class="about-prose__p">
+              喜欢音乐的流动，<strong class="about-keyword">Citywalk</strong> 的节奏，和电影里的光影瞬间。<br />
+              我习惯用镜头捕捉生活里的温柔，也热爱猫咪、边牧与萨摩耶带来的治愈。
+            </p>
+            <p class="about-prose__p">
+              对我而言，生活是一场缓慢的星际旅行，每一个灵感都是心底升起的微光。
+            </p>
+            <p class="about-prose__p">
+              在这里，我只想享受自由漂浮的每一个瞬间。
+            </p>
+          </div>
+        </div>
+        <aside class="accent accent--photo-corridor accent--photo-corridor-3d" aria-label="3D photo corridor">
+          <div class="photo-corridor-3d" id="photoCorridor3dRoot">
+            <canvas
+              id="photoCorridor3dCanvas"
+              class="photo-corridor-3d__canvas"
+              tabindex="0"
+              aria-label="Photo strip: auto-plays when pointer is outside the gallery column; pauses over the column; resumes on leave. Wheel moves the strip while the pointer is over this column; move the pointer to the text column to scroll the page. Hover a photo to face it; click to enlarge; backdrop or click again to close"
+            ></canvas>
+            <div class="photo-corridor-3d__progress" aria-hidden="true">
+              <div class="photo-corridor-3d__progress-track">
+                <div class="photo-corridor-3d__progress-fill"></div>
+              </div>
+            </div>
+            <p class="photo-corridor-3d__hint" aria-hidden="true">Column pauses auto · wheel steers strip · hover · click · close</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="slide" data-key="works" lang="zh-Hans">
+        <div class="slide__inner">
+          <p class="slide__eyebrow">Works</p>
+          <h2 class="slide__headline">Galaxies of Creation</h2>
+          <p class="slide__subhead">每个作品，都是一颗独立的星球。</p>
+          <p class="slide__body">
+            数据课程里做过的几次探险：把电影放进图表、把日常做成小程序界面，也试过让代码替我去拉一拉网上的片单。
+          </p>
+          <p class="slide__body slide__body--works-list">
+            <span class="works-list__item"><strong>《电影世界可视化》</strong> 影像与数据叠在一起，像在调情感的色盘。</span>
+            <span class="works-list__item"><strong>《拾领星球》</strong> 一颗用来收集生活碎片的创意小星球。</span>
+            <span class="works-list__item"><strong>《数据抓取》</strong> 从小小的爬虫脚本到一张可以翻的表。</span>
+          </p>
+        </div>
+        <div class="showcase" aria-label="Works showcase">
+          <div class="showcase__frame" aria-hidden="true"></div>
+          <div class="showcase__content">
+            <a
+              class="showcase__item"
+              href="projects/portfolio/movie/movie-standalone.html"
+              data-preview-src="assets/portfolio/movie.png"
+            >
+              <span class="showcase__kicker">数据可视化 · 2024</span>
+              <span class="showcase__title">电影世界可视化</span>
+              <span class="showcase__meta">打开全屏作品 →</span>
+            </a>
+            <a
+              class="showcase__item"
+              href="projects/portfolio/shiling/demo.html"
+              data-preview-src="assets/portfolio/star.png"
+            >
+              <span class="showcase__kicker">创意设计 · 2024</span>
+              <span class="showcase__title">拾领星球</span>
+              <span class="showcase__meta">查看网页演示 →</span>
+            </a>
+            <a
+              class="showcase__item"
+              href="assets/data/douban_movies.csv"
+              download="douban_movies.csv"
+              data-preview-src="assets/portfolio/data.png"
+            >
+              <span class="showcase__kicker">数据探索 · 2024</span>
+              <span class="showcase__title">豆瓣电影数据表</span>
+              <span class="showcase__meta">下载 CSV →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-key="hobbies" lang="en">
+        <div
+          class="hobbies-desk"
+          role="region"
+          aria-label="Hobbies desk — hover items, click to flip and see art"
+        >
+          <div class="hobbies-desk__flip" id="hobbiesDeskFlip">
+            <div class="hobbies-desk__flip-inner">
+              <div class="hobbies-desk__face hobbies-desk__face--front">
+                <div class="hobbies-desk__frame">
+            <img
+              class="hobbies-desk__bg"
+              src="assets/hobbies-desk-sketch.png"
+              alt=""
+              decoding="async"
+            />
+            <button
+              type="button"
+              class="hobbies-desk__spot hobbies-desk__spot--shelf-books"
+              data-hobby="books"
+              aria-label="Shelf books — click to flip"
+            ></button>
+            <button
+              type="button"
+              class="hobbies-desk__spot hobbies-desk__spot--books-desk"
+              data-hobby="books"
+              aria-label="Desk books — click to flip"
+            ></button>
+            <button
+              type="button"
+              class="hobbies-desk__spot hobbies-desk__spot--boots"
+              data-hobby="boots"
+              aria-label="Hiking boots — click to flip"
+            ></button>
+            <button
+              type="button"
+              class="hobbies-desk__spot hobbies-desk__spot--monitor"
+              data-hobby="monitor"
+              aria-label="Monitor — click to flip"
+            ></button>
+            <button
+              type="button"
+              class="hobbies-desk__spot hobbies-desk__spot--camera"
+              data-hobby="camera"
+              aria-label="Camera — click to flip"
+            ></button>
+            <button
+              type="button"
+              class="hobbies-desk__spot hobbies-desk__spot--stereo"
+              data-hobby="stereo"
+              aria-label="Speakers — click to flip"
+            ></button>
+            <button
+              type="button"
+              class="hobbies-desk__spot hobbies-desk__spot--basketball"
+              data-hobby="basketball"
+              aria-label="Basketball — click to flip"
+            >
+              <svg
+                class="hobbies-desk__basketball-svg"
+                viewBox="0 0 64 64"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <circle
+                  cx="32"
+                  cy="32"
+                  r="27"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.75"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M32 5v54M5 32h54"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M10 18c8 8 14 14 22 22m0-44c-8 8-14 14-22 22m44 0c-8-8-14-14-22-22m0 44c8-8 14-14 22-22"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.35"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+
+            <div class="hobbies-desk__caption-rail" aria-hidden="true">
+              <p
+                class="hobbies-desk__panel-caption hobbies-desk__caption--books-shelf"
+                data-full-note="现实太吵，所以我在这里留了扇门。散文、科幻或小说，都是我通往异世界的隐形通道。"
+              >
+                Reading
+              </p>
+              <p
+                class="hobbies-desk__panel-caption hobbies-desk__caption--books-desk"
+                data-full-note="现实太吵，所以我在这里留了扇门。散文、科幻或小说，都是我通往异世界的隐形通道。"
+              >
+                Reading
+              </p>
+              <p
+                class="hobbies-desk__panel-caption hobbies-desk__caption--boots"
+                data-full-note="山路在脚下延展，鞋带系紧每一次出发。把尘土留在身后，把风与远处的轮廓装进口袋。"
+              >
+                Hiking
+              </p>
+              <p
+                class="hobbies-desk__panel-caption hobbies-desk__caption--monitor"
+                data-full-note="有人看见逻辑，而我看见诗。在代码的跳动里，我抓住了创造艺术的另一种可能。"
+              >
+                Vibe Coding
+              </p>
+              <p
+                class="hobbies-desk__panel-caption hobbies-desk__caption--camera"
+                data-full-note="摄影是私藏光影的魔法。我把那一刻的情感揉进底片里，想让瞬时变成永恒。你，也想入镜吗？"
+              >
+                Photography
+              </p>
+              <p
+                class="hobbies-desk__panel-caption hobbies-desk__caption--stereo"
+                data-full-note="音乐是烦恼的解药。当旋律填满房间的缝隙，整个世界都会变得轻盈起来。"
+              >
+                Music
+              </p>
+              <p
+                class="hobbies-desk__panel-caption hobbies-desk__caption--basketball"
+                data-full-note="球撞击地面的声音，是与风的对话。当球落入网心，那声闷响能带走所有过载的压力。"
+              >
+                Basketball
+              </p>
+            </div>
+                </div>
+              </div>
+
+              <div
+                class="hobbies-desk__face hobbies-desk__face--back"
+                id="hobbiesDeskBackPanel"
+                role="region"
+                aria-label="Hobby artwork"
+                aria-hidden="true"
+              >
+                <div class="hobbies-desk__back-inner">
+                  <div class="hobbies-desk__back-visual">
+                    <img
+                      class="hobbies-desk__back-img"
+                      id="hobbiesBackImage"
+                      alt=""
+                      decoding="async"
+                    />
+                    <button
+                      type="button"
+                      class="hobbies-desk__back-flip-arrow"
+                      id="hobbiesFlipToFront"
+                      aria-label="Back to desk sketch"
+                    >
+                      <svg class="hobbies-desk__back-flip-arrow__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path
+                          fill="currentColor"
+                          d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="hobbies-desk__hint" lang="en">
+            Hover to discover, click to explore the stories behind the lines.
+          </p>
+        </div>
+
+        <div class="slide__inner">
+          <p class="slide__eyebrow">Hobbies</p>
+          <h2 class="slide__headline">Things I return to.</h2>
+          <div class="monologue-container">
+            <p class="monologue-text" id="typing-monologue"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-key="guestbook">
+        <div class="slide__inner slide__inner--guestbook">
+          <div class="guestbook-read">
+            <p class="slide__eyebrow">Guestbook</p>
+            <h2 class="slide__headline">Leave a note.</h2>
+            <p class="slide__subhead">A demo corner for messages.</p>
+          </div>
+
+          <div class="guestbook-right">
+            <div class="guestbook-panel">
+              <div class="guestbook-stage">
+                <div class="guestbook-envelope-track">
+                  <button
+                    type="button"
+                    class="guestbook-envelope"
+                    id="guestbookEnvelope"
+                    aria-expanded="false"
+                    aria-controls="guestbookCompose"
+                    aria-label="Open envelope"
+                  >
+                    <svg
+                      class="guestbook-envelope__svg"
+                      viewBox="0 0 120 76"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <rect x="6" y="30" width="108" height="42" stroke="currentColor" stroke-width="1" />
+                      <g class="guestbook-envelope__flap-wrap">
+                        <path
+                          class="guestbook-envelope__flap"
+                          d="M6 30 L60 10 L114 30"
+                          stroke="currentColor"
+                          stroke-width="1"
+                          fill="none"
+                          stroke-linejoin="miter"
+                        />
+                      </g>
+                      <line x1="6" y1="30" x2="114" y2="30" stroke="currentColor" stroke-width="0.75" opacity="0.55" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="guestbook-frame">
+              <div class="guestbook-write" id="guestbookLetterPanel" hidden aria-hidden="true">
+                <form class="guestbook-compose--letter" id="guestbookCompose" aria-hidden="true">
+                  <label class="guestbook-compose__label" for="gbNote">Message</label>
+                  <textarea
+                    id="gbNote"
+                    name="note"
+                    class="guestbook-letter__surface"
+                    placeholder="A line or two..."
+                    rows="12"
+                  ></textarea>
+                  <div class="guestbook-compose__row">
+                    <button type="submit" class="guestbook-compose__send">Send</button>
+                    <button type="button" class="guestbook-compose__cancel" id="guestbookCloseWrite">Close</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="guestbook-thanks" id="guestbookThanks" hidden>
+                <p class="guestbook-thanks__slip">Your note has joined the page.</p>
+                <button type="button" class="guestbook-thanks__back" id="guestbookThanksBack">Write another</button>
+              </div>
+
+              <div class="guestbook-wall" id="guestbookWall" aria-live="polite" aria-label="Notes on the wall">
+                <div class="guestbook-wall__floats" id="guestbookWallFloats" aria-hidden="true"></div>
+                <div class="guestbook-wall__static">
+                  <p class="guestbook-wall__note" style="--gb-shift: 0px">A quiet hello from the wall.</p>
+                  <p class="guestbook-wall__note" style="--gb-shift: 8px">Short notes read better than long ones.</p>
+                  <p class="guestbook-wall__note" style="--gb-shift: -6px">Nothing here is urgent.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="accent accent--scribble"
+          role="region"
+          aria-label="Mini game: move the dots with WASD and arrow keys"
+        ></div>
+      </section>
+
+      <section class="slide" data-key="contact">
+        <div class="contact-container" role="group" aria-label="Contact layout">
+          <div class="slide__inner">
+            <p class="slide__eyebrow">Contact</p>
+            <h2 class="slide__headline">Let’s talk.</h2>
+            <p class="slide__subhead">Email, WeChat, or any way you prefer.</p>
+            <p class="slide__body">Tap to copy — keep it simple.</p>
+
+            <div class="contact-panel" role="group" aria-label="Contact methods">
+              <button class="contact-item contact-copy" type="button" data-copy="2017173032@qq.com" aria-label="Copy email">
+                <span class="contact-item__k">Email</span>
+                <span class="contact-item__v">2017173032@qq.com</span>
+                <span class="contact-item__a" aria-hidden="true">Copy</span>
+              </button>
+
+              <button class="contact-item contact-copy" type="button" data-copy="Sempre-meglio" aria-label="Copy WeChat ID">
+                <span class="contact-item__k">WeChat</span>
+                <span class="contact-item__v">Sempre-meglio</span>
+                <span class="contact-item__a" aria-hidden="true">Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="contact-lyric-scroller lyric-scroller"
+            role="region"
+            aria-label="Lyric poem scroller"
+            aria-live="polite"
+            tabindex="0"
+          >
+            <div class="contact-lyric-scroller__viewport" aria-hidden="true">
+              <div class="contact-lyric-scroller__track">
+                <div class="lyric-stanza" data-stanza-index="0">
+                  <div class="lyric-stanza__text">
+                    <span class="lyric-line" data-line-index="0">Seasons turn in quiet light,</span>
+                    <span class="lyric-line" data-line-index="1">From winter's breath to summer's sight.</span>
+                    <span class="lyric-line" data-line-index="2">Spring will bloom and autumn wane,</span>
+                    <span class="lyric-line" data-line-index="3">A soft, enduring, sweet refrain.</span>
+                  </div>
+                </div>
+
+                <div class="lyric-stanza" data-stanza-index="1">
+                  <div class="lyric-stanza__text">
+                    <span class="lyric-line" data-line-index="0">Yet here you are, a serendipity,</span>
+                    <span class="lyric-line" data-line-index="1">Upon this screen, a tiny epiphany.</span>
+                    <span class="lyric-line" data-line-index="2">Two distant spheres, we each move apart,</span>
+                    <span class="lyric-line" data-line-index="3">Guided by keys, yet led by the heart.</span>
+                  </div>
+                </div>
+
+                <div class="lyric-stanza" data-stanza-index="2">
+                  <div class="lyric-stanza__text">
+                    <span class="lyric-line" data-line-index="0">You left your note, a soul’s soft gleam,</span>
+                    <span class="lyric-line" data-line-index="1">More real than any silent dream.</span>
+                    <span class="lyric-line" data-line-index="2">I read each word, I feel you here,</span>
+                    <span class="lyric-line" data-line-index="3">Dispelling distance, drawing near.</span>
+                  </div>
+                </div>
+
+                <div class="lyric-stanza" data-stanza-index="3">
+                  <div class="lyric-stanza__text">
+                    <span class="lyric-line" data-line-index="0">Now play the game, bring spheres to one,</span>
+                    <span class="lyric-line" data-line-index="1">See where our journeys have begun.</span>
+                    <span class="lyric-line" data-line-index="2">When they collide, a magic spark,</span>
+                    <span class="lyric-line" data-line-index="3">Lights up the quiet and the dark.</span>
+                  </div>
+                </div>
+
+                <div class="lyric-stanza" data-stanza-index="4">
+                  <div class="lyric-stanza__text">
+                    <span class="lyric-line" data-line-index="0">No matter the hour, no matter the year,</span>
+                    <span class="lyric-line" data-line-index="1">Whether you’re far, or lingering near.</span>
+                    <span class="lyric-line" data-line-index="2">May autumn’s gold and winter’s grace,</span>
+                    <span class="lyric-line" data-line-index="3">Leave love’s soft light upon your face.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accent accent--dot" aria-hidden="true"></div>
+      </section>
+    </div>
+
+    <footer class="footer" aria-label="Footer">
+      <div class="footer__nav" role="group" aria-label="Slide navigation">
+        <div class="footer__dots" id="dots"></div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Viewport-fixed burst layer must stay outside .rail (transform breaks fixed + client coords). -->
+  <div
+    id="hobbiesPetalLayer"
+    class="hobbies-petal-layer"
+    aria-hidden="true"
+  ></div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="photo-corridor-3d.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

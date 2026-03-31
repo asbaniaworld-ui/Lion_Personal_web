@@ -1,0 +1,117 @@
+<!--publish.wxml-->
+<view class="publish-container">
+  <view class="publish-header">
+    <view class="back-button" bindtap="goBack">
+      <text class="back-icon">←</text>
+      <text class="back-text">返回</text>
+    </view>
+    <text class="publish-title">发布失物招领</text>
+  </view>
+
+  <form class="publish-form" bindsubmit="onSubmit">
+    <!-- 上传图片 -->
+    <view class="form-group">
+      <text class="form-label">上传图片 <text class="required">*</text></text>
+      <view class="image-upload-area" bindtap="chooseImage">
+        <image 
+          wx:if="{{imagePath}}" 
+          src="{{imagePath}}" 
+          mode="aspectFit"
+          class="preview-image"
+        />
+        <view wx:else class="upload-placeholder">
+          <text class="upload-icon">📷</text>
+          <text class="upload-text">点击上传图片</text>
+          <text class="upload-hint">支持 JPG、PNG 格式，最大 5MB</text>
+        </view>
+        <view wx:if="{{imagePath}}" class="remove-image-btn" catchtap="removeImage">
+          <text>✕</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 物品名称 -->
+    <view class="form-group">
+      <text class="form-label">物品名称 <text class="required">*</text></text>
+      <input 
+        class="form-input" 
+        placeholder="请输入物品名称" 
+        value="{{itemName}}"
+        bindinput="onItemNameInput"
+        maxlength="50"
+      />
+    </view>
+
+    <!-- 物品类型 -->
+    <view class="form-group">
+      <text class="form-label">物品类型 <text class="required">*</text></text>
+      <radio-group class="type-selection" bindchange="onTypeChange">
+        <label class="type-option {{itemType === 'found' ? 'checked' : ''}}">
+          <radio 
+            value="found" 
+            checked="{{itemType === 'found'}}"
+          />
+          <text class="type-option-label found">招领</text>
+        </label>
+        <label class="type-option {{itemType === 'lost' ? 'checked' : ''}}">
+          <radio 
+            value="lost" 
+            checked="{{itemType === 'lost'}}"
+          />
+          <text class="type-option-label lost">失物</text>
+        </label>
+      </radio-group>
+    </view>
+
+    <!-- 详细描述 -->
+    <view class="form-group">
+      <text class="form-label">详细描述 <text class="required">*</text></text>
+      <textarea 
+        class="form-textarea" 
+        placeholder="请详细描述物品的特征、发现位置等信息..."
+        value="{{description}}"
+        bindinput="onDescriptionInput"
+        maxlength="500"
+      />
+    </view>
+
+    <!-- 发现/丢失地点 -->
+    <view class="form-group">
+      <text class="form-label">地点 <text class="required">*</text></text>
+      <input 
+        class="form-input" 
+        placeholder="请输入发现或丢失的地点"
+        value="{{location}}"
+        bindinput="onLocationInput"
+        maxlength="100"
+      />
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="form-group">
+      <text class="form-label">联系方式 <text class="required">*</text></text>
+      <input 
+        class="form-input" 
+        placeholder="请输入联系电话或微信/QQ"
+        value="{{contact}}"
+        bindinput="onContactInput"
+        maxlength="50"
+      />
+    </view>
+
+    <!-- 发布按钮 -->
+    <view class="form-actions">
+      <button 
+        class="submit-btn" 
+        formType="submit"
+        disabled="{{isSubmitting}}"
+      >{{isSubmitting ? '发布中...' : '发布'}}</button>
+      <button 
+        class="cancel-btn" 
+        bindtap="goBack"
+        type="button"
+      >取消</button>
+    </view>
+  </form>
+</view>
+

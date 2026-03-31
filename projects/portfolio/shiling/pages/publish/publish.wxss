@@ -1,0 +1,376 @@
+/**publish.wxss**/
+page {
+  background-color: var(--bg-primary, #000000);
+  min-height: 100vh;
+  color: var(--text-primary, #ffffff);
+}
+
+.publish-container {
+  max-width: 100%;
+  padding: 30rpx 20rpx;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg-primary, #000000) 0%, var(--bg-secondary, #0a0a0a) 50%, var(--bg-primary, #000000) 100%);
+}
+
+/* 页面头部 */
+.publish-header {
+  margin-bottom: 40rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid rgba(255, 165, 0, 0.3);
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 16rpx 24rpx;
+  background: var(--bg-card, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, #ffffff);
+  border: 2rpx solid var(--border-color, rgba(255, 255, 255, 0.2));
+  border-radius: 40rpx;
+  width: fit-content;
+  box-shadow: 0 4rpx 12rpx var(--shadow-color, rgba(0, 0, 0, 0.3));
+}
+
+.back-icon {
+  font-size: 28rpx;
+  margin-right: 8rpx;
+  color: var(--accent-color, #ffa500);
+}
+
+.back-text {
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.publish-title {
+  font-size: 48rpx;
+  color: var(--accent-color, #ffa500);
+  font-weight: 600;
+  display: block;
+  text-align: center;
+  text-shadow: 0 0 20rpx var(--accent-glow, rgba(255, 165, 0, 0.3));
+}
+
+/* 表单样式 */
+.publish-form {
+  display: flex;
+  flex-direction: column;
+  /* gap: 30rpx; */ /* 注释：某些版本可能不支持gap，使用margin代替 */
+}
+
+.publish-form > .form-group {
+  margin-bottom: 50rpx;
+}
+
+.publish-form > .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  /* gap: 10rpx; */ /* 注释：使用margin代替gap */
+}
+
+.form-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-secondary, rgba(255, 255, 255, 0.9));
+}
+
+.required {
+  color: #ff6464;
+}
+
+/* 图片上传区域 */
+.image-upload-area {
+  position: relative;
+  border: 2rpx dashed var(--border-color, rgba(255, 255, 255, 0.3));
+  border-radius: 24rpx;
+  padding: 40rpx;
+  text-align: center;
+  background: var(--bg-card, rgba(255, 255, 255, 0.05));
+  min-height: 400rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.image-upload-area:active {
+  border-color: var(--accent-color, #ffa500);
+  background: var(--accent-glow, rgba(255, 165, 0, 0.1));
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 600rpx;
+  border-radius: 16rpx;
+  object-fit: contain;
+  border: 2rpx solid rgba(255, 165, 0, 0.3);
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* gap: 16rpx; */ /* 注释：使用margin代替gap */
+}
+
+.upload-placeholder > text {
+  margin-bottom: 16rpx;
+}
+
+.upload-placeholder > text:last-child {
+  margin-bottom: 0;
+}
+
+.upload-icon {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.upload-text {
+  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  font-size: 28rpx;
+}
+
+.upload-hint {
+  font-size: 24rpx;
+  color: var(--text-placeholder, rgba(255, 255, 255, 0.5));
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  background: rgba(255, 100, 100, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60rpx;
+  height: 60rpx;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.3);
+}
+
+.remove-image-btn:active {
+  background: #ff6464;
+}
+
+/* 表单输入 */
+.form-input,
+.form-textarea {
+  padding: 24rpx 32rpx;
+  border: 2rpx solid var(--border-color, rgba(255, 255, 255, 0.2));
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  background: var(--bg-input, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, #ffffff);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-placeholder, rgba(255, 255, 255, 0.4));
+}
+
+.form-textarea {
+  min-height: 240rpx;
+  line-height: 1.6;
+}
+
+/* 类型选择 */
+.type-selection {
+  display: flex;
+  /* gap: 20rpx; */ /* 注释：使用margin代替gap */
+}
+
+.type-selection > .type-option {
+  margin-right: 20rpx;
+}
+
+.type-selection > .type-option:last-child {
+  margin-right: 0;
+}
+
+.type-option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.type-option radio {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.type-option-label {
+  display: block;
+  padding: 24rpx 48rpx;
+  border: 2rpx solid var(--border-color, rgba(255, 255, 255, 0.2));
+  border-radius: 16rpx;
+  text-align: center;
+  font-weight: 600;
+  font-size: 28rpx;
+  /* transition: all 0.3s ease; */ /* 注释：某些版本可能不支持transition */
+  background: var(--bg-card, rgba(255, 255, 255, 0.05));
+  color: var(--text-secondary, rgba(255, 255, 255, 0.8));
+  width: 100%;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+/* 注释：微信小程序不支持兄弟选择器 ~，改用 JavaScript 动态类名控制 */
+.type-option.checked .type-option-label.found,
+.type-option.checked .type-option-label.lost {
+  background: rgba(255, 165, 0, 0.2);
+  border-color: #ffa500;
+  color: #ffa500;
+  box-shadow: 0 0 20rpx rgba(255, 165, 0, 0.3);
+}
+
+/* 按钮组 */
+.form-actions {
+  display: flex;
+  /* gap: 20rpx; */ /* 注释：使用margin代替gap */
+  margin-top: 20rpx;
+}
+
+.form-actions > button {
+  margin-right: 20rpx;
+}
+
+.form-actions > button:last-child {
+  margin-right: 0;
+}
+
+.submit-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 28rpx 48rpx;
+  border: none;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.submit-btn::after,
+.cancel-btn::after {
+  border: none;
+}
+
+.submit-btn {
+  background: var(--accent-color, #ffa500);
+  color: var(--btn-text-color, #000000);
+  box-shadow: 
+    0 0 10rpx rgba(255, 165, 0, 0.5),
+    0 0 20rpx rgba(255, 165, 0, 0.3),
+    0 8rpx 30rpx rgba(255, 165, 0, 0.4);
+  position: relative;
+  overflow: visible;
+  animation: particleGlow 3s ease-in-out infinite;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: -2rpx;
+  left: -2rpx;
+  right: -2rpx;
+  bottom: -2rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(255, 165, 0, 0.8) 50%, 
+    transparent 70%);
+  background-size: 200% 200%;
+  animation: particleFlow 4s linear infinite;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.submit-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  border-radius: 16rpx;
+  background: radial-gradient(circle at 50% 50%, 
+    rgba(255, 165, 0, 0.3) 0%, 
+    rgba(255, 165, 0, 0.15) 40%, 
+    transparent 70%);
+  opacity: 0.6;
+  z-index: -1;
+  pointer-events: none;
+  animation: particlePulse 3s ease-in-out infinite;
+}
+
+.submit-btn[disabled] {
+  opacity: 0.6;
+  animation: none;
+}
+
+.cancel-btn {
+  background: var(--bg-card, rgba(255, 255, 255, 0.1));
+  color: var(--text-primary, #ffffff);
+  border: 2rpx solid var(--border-color, rgba(255, 255, 255, 0.3));
+}
+
+.cancel-btn:active {
+  background: var(--bg-input, rgba(255, 255, 255, 0.15));
+}
+
+/* 动画效果 */
+@keyframes particleGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 10rpx rgba(255, 165, 0, 0.5),
+      0 0 20rpx rgba(255, 165, 0, 0.3),
+      0 8rpx 30rpx rgba(255, 165, 0, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 0 15rpx rgba(255, 165, 0, 0.7),
+      0 0 30rpx rgba(255, 165, 0, 0.5),
+      0 8rpx 30rpx rgba(255, 165, 0, 0.5);
+  }
+}
+
+@keyframes particleFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes particlePulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+

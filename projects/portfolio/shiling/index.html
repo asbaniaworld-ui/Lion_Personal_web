@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园失物招领</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>校园失物招领</h1>
+        <div class="search-container">
+            <input type="text" placeholder="搜索失物..." class="search-bar" id="searchInput">
+            <button class="search-btn" id="searchBtn">搜索</button>
+        </div>
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="lost">失物</button>
+            <button class="filter-btn" data-filter="found">招领</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="items-container" id="itemsContainer">
+            <a href="detail.html" class="item-card-link" data-type="found">
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/120x120/4A90E2/FFFFFF?text=📱" alt="手机">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-header">
+                            <h3>iPhone 13</h3>
+                            <span class="type-badge found">招领</span>
+                        </div>
+                        <p>黑色iPhone 13，在图书馆二楼捡到，有蓝色手机壳</p>
+                        <div class="item-footer">
+                            <span class="location">📍 图书馆二楼</span>
+                            <span class="date">2024-01-15</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="detail-backpack.html" class="item-card-link" data-type="found">
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/120x120/4A90E2/FFFFFF?text=🎒" alt="背包">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-header">
+                            <h3>黑色双肩包</h3>
+                            <span class="type-badge found">招领</span>
+                        </div>
+                        <p>耐克黑色双肩包，在食堂门口发现，内有笔记本和文具</p>
+                        <div class="item-footer">
+                            <span class="location">📍 食堂门口</span>
+                            <span class="date">2024-01-14</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="detail-thermos.html" class="item-card-link" data-type="found">
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/120x120/4A90E2/FFFFFF?text=💧" alt="水杯">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-header">
+                            <h3>保温杯</h3>
+                            <span class="type-badge found">招领</span>
+                        </div>
+                        <p>白色保温杯，星巴克品牌，在操场看台发现</p>
+                        <div class="item-footer">
+                            <span class="location">📍 操场看台</span>
+                            <span class="date">2024-01-13</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="detail-keys.html" class="item-card-link" data-type="found">
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/120x120/4A90E2/FFFFFF?text=🔑" alt="钥匙">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-header">
+                            <h3>钥匙串</h3>
+                            <span class="type-badge found">招领</span>
+                        </div>
+                        <p>一串钥匙，包括宿舍钥匙和自行车钥匙，在宿舍楼下发现</p>
+                        <div class="item-footer">
+                            <span class="location">📍 宿舍楼下</span>
+                            <span class="date">2024-01-12</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="detail-book.html" class="item-card-link" data-type="lost">
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/120x120/E74C3C/FFFFFF?text=📚" alt="书本">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-header">
+                            <h3>高等数学教材</h3>
+                            <span class="type-badge lost">失物</span>
+                        </div>
+                        <p>《高等数学》上册，在教室A101发现，书内有名贴</p>
+                        <div class="item-footer">
+                            <span class="location">📍 教室A101</span>
+                            <span class="date">2024-01-11</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="detail-airpods.html" class="item-card-link" data-type="found">
+                <div class="item-card">
+                    <div class="item-image">
+                        <img src="https://via.placeholder.com/120x120/4A90E2/FFFFFF?text=🎧" alt="耳机">
+                    </div>
+                    <div class="item-info">
+                        <div class="item-header">
+                            <h3>AirPods Pro</h3>
+                            <span class="type-badge found">招领</span>
+                        </div>
+                        <p>白色AirPods Pro，在体育馆更衣室发现，充电盒完整</p>
+                        <div class="item-footer">
+                            <span class="location">📍 体育馆更衣室</span>
+                            <span class="date">2024-01-10</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- 底部导航栏 -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-btn active">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">首页</span>
+        </a>
+        <a href="publish.html" class="nav-btn" id="publishBtn">
+            <span class="nav-icon">➕</span>
+            <span class="nav-label">发布</span>
+        </a>
+        <a href="#" class="nav-btn" id="profileBtn">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">个人主页</span>
+        </a>
+    </nav>
+
+    <footer>
+        <p>&copy; 2024 校园失物招领平台</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

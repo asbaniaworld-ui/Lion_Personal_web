@@ -1,0 +1,25 @@
+# Local / OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+
+# Screen captures & scratch (not part of live site)
+questions/
+
+# Design / packaging (fonts already committed as extracted files)
+*.zip
+*.penpot
+
+# Tooling binaries (not needed to run the static site)
+tools/
+
+# Secrets — WeChat DevTools local overrides
+**/project.private.config.json
+
+# Dependencies (if added later)
+node_modules/
+
+# Editor
+.cursor/
+.vscode/

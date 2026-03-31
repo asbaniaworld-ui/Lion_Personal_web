@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布失物招领</title>
+    <link rel="stylesheet" href="publish-styles.css">
+</head>
+<body>
+    <div class="publish-container">
+        <header class="publish-header">
+            <a href="index.html" class="back-link">← 返回</a>
+            <h1>发布失物招领</h1>
+        </header>
+
+        <form class="publish-form" id="publishForm">
+            <!-- 上传图片 -->
+            <div class="form-group">
+                <label class="form-label">上传图片 <span class="required">*</span></label>
+                <div class="image-upload-area" id="imageUploadArea">
+                    <input type="file" id="imageInput" accept="image/*" required>
+                    <div class="upload-placeholder">
+                        <span class="upload-icon">📷</span>
+                        <p>点击或拖拽上传图片</p>
+                        <p class="upload-hint">支持 JPG、PNG 格式，最大 5MB</p>
+                    </div>
+                    <img id="previewImage" class="preview-image" style="display: none;" alt="预览图片">
+                    <button type="button" class="remove-image-btn" id="removeImageBtn" style="display: none;">✕</button>
+                </div>
+            </div>
+
+            <!-- 物品名称 -->
+            <div class="form-group">
+                <label for="itemName" class="form-label">物品名称 <span class="required">*</span></label>
+                <input type="text" id="itemName" name="itemName" class="form-input" placeholder="请输入物品名称" required>
+            </div>
+
+            <!-- 物品类型 -->
+            <div class="form-group">
+                <label class="form-label">物品类型 <span class="required">*</span></label>
+                <div class="type-selection">
+                    <label class="type-option">
+                        <input type="radio" name="itemType" value="found" required>
+                        <span class="type-option-label found">招领</span>
+                    </label>
+                    <label class="type-option">
+                        <input type="radio" name="itemType" value="lost" required>
+                        <span class="type-option-label lost">失物</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 详细描述 -->
+            <div class="form-group">
+                <label for="description" class="form-label">详细描述 <span class="required">*</span></label>
+                <textarea id="description" name="description" class="form-textarea" rows="5" placeholder="请详细描述物品的特征、发现位置等信息..." required></textarea>
+            </div>
+
+            <!-- 发现/丢失地点 -->
+            <div class="form-group">
+                <label for="location" class="form-label">地点 <span class="required">*</span></label>
+                <input type="text" id="location" name="location" class="form-input" placeholder="请输入发现或丢失的地点" required>
+            </div>
+
+            <!-- 联系方式 -->
+            <div class="form-group">
+                <label for="contact" class="form-label">联系方式 <span class="required">*</span></label>
+                <input type="text" id="contact" name="contact" class="form-input" placeholder="请输入联系电话或微信/QQ" required>
+            </div>
+
+            <!-- 发布按钮 -->
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">发布</button>
+                <button type="button" class="cancel-btn" onclick="window.location.href='index.html'">取消</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="publish.js"></script>
+</body>
+</html>
+
