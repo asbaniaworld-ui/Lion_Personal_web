@@ -141,6 +141,26 @@
     }
   }
 
+  /**
+   * 预拉 AI 建模页 `model-draco.glb` + `model-viewer` 脚本，写入 HTTP 缓存，
+   * 用户从 Works 点进 model-preview 时首屏更快（与欢迎页进度条「Almost ready」前挂钩）。
+   */
+  async function warmAiModelAssetsForLaterVisit() {
+    const pullToCache = async (relativePath) => {
+      try {
+        const url = new URL(relativePath, window.location.href).href;
+        const res = await fetch(url, { cache: "default", credentials: "same-origin" });
+        if (res.ok) await res.arrayBuffer();
+      } catch (err) {
+        console.warn("[loader] prefetch failed:", relativePath, err);
+      }
+    };
+    await Promise.all([
+      pullToCache("models/model-draco.glb"),
+      pullToCache("libs/model-viewer/model-viewer.min.js"),
+    ]);
+  }
+
   function fireAfterLoaderDismissed() {
     const fn = afterLoaderDismissed;
     afterLoaderDismissed = null;
@@ -179,11 +199,46 @@
     const W = {
       fonts: 6,
       load: 14,
-      video: 22,
-      images: 18,
-      corridor: 28,
-      interact: 12,
+      video: 20,
+      images: 22,
+      corridor: 30,
+      interact: 8,
     };
+
+    /** Works 悬停预览 + Hobbies 翻面大图：与首屏 <img> 一并解码，避免进入后仍会卡顿。 */
+    const LOADER_EXTRA_DECODE_URLS = [
+      "assets/portfolio/movie.png",
+      "assets/portfolio/star.png",
+      "assets/portfolio/data.png",
+      "models/image.png",
+      "Hobbies/Book.png",
+      "Hobbies/Hiking.png",
+      "Hobbies/Vibe coding.png",
+      "Hobbies/Photography.png",
+      "Hobbies/Music.png",
+      "Hobbies/Basketball.png",
+    ];
+
+    const waitForPhotoCorridorBindings = (maxMs = 14000) =>
+      new Promise((resolve) => {
+        const t0 = performance.now();
+        const done = (ok) => resolve(ok);
+        const tick = () => {
+          if (typeof window.__photoCorridor3dTexturesPromise !== "undefined") {
+            done(true);
+            return;
+          }
+          if (performance.now() - t0 >= maxMs) {
+            console.warn(
+              "[loader] 3D photo corridor 初始化超时，将继续（稍后贴图可能仍在加载）"
+            );
+            done(false);
+            return;
+          }
+          requestAnimationFrame(tick);
+        };
+        tick();
+      });
 
     const waitWindowLoad = () =>
       new Promise((resolve) => {
@@ -296,18 +351,24 @@
 
         if (loaderHintEl) loaderHintEl.textContent = "Loading images…";
         const urls = new Set();
-        document.querySelectorAll("img[src]").forEach((el) => {
-          const s = el.getAttribute("src");
+        const addUrl = (s) => {
           if (!s || s.startsWith("data:")) return;
           try {
             urls.add(new URL(s, window.location.href).href);
           } catch {
             urls.add(s);
           }
+        };
+        document.querySelectorAll("img[src]").forEach((el) => {
+          addUrl(el.getAttribute("src"));
         });
+        document.querySelectorAll("[data-preview-src]").forEach((el) => {
+          addUrl(el.getAttribute("data-preview-src"));
+        });
+        LOADER_EXTRA_DECODE_URLS.forEach(addUrl);
         await raceLoaderStep(
           Promise.all([...urls].map((u) => decodeUrl(u))),
-          35000,
+          45000,
           "img decode"
         );
         bump("images");
@@ -315,20 +376,21 @@
         if (loaderHintEl) loaderHintEl.textContent = "Loading photo gallery…";
         const corridorStart = acc;
         const corridorSpan = W.corridor;
+        await raceLoaderStep(waitForPhotoCorridorBindings(14000), 14000, "3D module");
         const pollCorridor = () => {
           const p =
             typeof window.__photoCorridor3dLoadProgress === "number"
               ? window.__photoCorridor3dLoadProgress
               : 0;
-          setTargetBar(corridorStart + corridorSpan * p);
+          setTargetBar(corridorStart + corridorSpan * Math.min(1, p));
         };
         pollCorridor();
-        const pollId = window.setInterval(pollCorridor, 120);
+        const pollId = window.setInterval(pollCorridor, 100);
         try {
           if (window.__photoCorridor3dTexturesPromise) {
             await raceLoaderStep(
               window.__photoCorridor3dTexturesPromise,
-              18000,
+              32000,
               "3D corridor textures"
             );
           }
@@ -336,6 +398,7 @@
           /* corridor optional */
         }
         window.clearInterval(pollId);
+        pollCorridor();
         bump("corridor");
 
         const interactStart = acc;
@@ -3840,6 +3903,10 @@
     if (window.__photoCorridor3dRendererWarmup) {
       await window.__photoCorridor3dRendererWarmup();
     }
+    subInteract(0.52);
+
+    if (loaderHintEl) loaderHintEl.textContent = "Warming portfolio 3D (Draco)…";
+    await warmAiModelAssetsForLaterVisit();
     subInteract(0.62);
 
     if (loaderHintEl) loaderHintEl.textContent = "Warming navigation…";
