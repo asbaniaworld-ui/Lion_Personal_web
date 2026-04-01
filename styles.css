@@ -414,6 +414,12 @@ html.is-rail-dragging * {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  opacity: 1;
+  transition: opacity 0.38s ease;
+}
+
+.slide[data-key="hobbies"] .hobbies-desk__back-visual.is-loading .hobbies-desk__back-img {
+  opacity: 0;
 }
 
 .slide[data-key="hobbies"] .hobbies-desk__back-flip-arrow {

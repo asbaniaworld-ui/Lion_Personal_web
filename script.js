@@ -3561,13 +3561,14 @@
         "Chasing light to freeze a feeling. Do you want to be in the frame?",
       Speaker: "When the music starts, the world simply fades away.",
       PC: "I believe logic can be poetic. Art is written in 0s and 1s.",
-      Lion: "Just a curious soul wandering through the lines of the day.",
+      Hiking:
+        "Trails stretch ahead; each tight knot in the laces is a quiet promise to keep walking.",
     };
 
     /** data-hobby hotspot key → monologues key */
     const hobbyKeyToMonologueItem = {
       books: "Book",
-      boots: "Lion",
+      boots: "Hiking",
       basketball: "Basketball",
       camera: "Camera",
       stereo: "Speaker",
@@ -3641,24 +3642,73 @@
 
     let lastSpot = null;
 
-    const captionForHobbyKey = (key) => {
+    const backVisual = backImage.closest(".hobbies-desk__back-visual");
+
+    const captionForHobbyKey = (key, spot) => {
       if (key === "books") {
+        if (spot?.classList.contains("hobbies-desk__spot--books-desk")) {
+          return frame.querySelector(".hobbies-desk__caption--books-desk");
+        }
         return frame.querySelector(".hobbies-desk__caption--books-shelf");
       }
       return frame.querySelector(`.hobbies-desk__caption--${key}`);
     };
 
-    const applyBackContent = (key) => {
-      const cap = captionForHobbyKey(key);
+    const applyBackContent = (key, spot) => {
+      const cap = captionForHobbyKey(key, spot);
       const src = hobbyBackImages[key];
       if (!cap || !src) return false;
       const tag = cap.textContent.trim();
-      backImage.src = src;
+      backVisual?.classList.add("is-loading");
       backImage.alt = tag || "Hobby artwork";
       backImage.style.objectPosition =
         hobbyBackObjectPosition[key] ?? "center center";
+      if ("fetchPriority" in backImage) {
+        backImage.fetchPriority = "high";
+      }
+      const markReady = () => backVisual?.classList.remove("is-loading");
+      backImage.src = src;
+      if (typeof backImage.decode === "function") {
+        backImage.decode().then(markReady).catch(markReady);
+      } else {
+        backImage.onload = markReady;
+        backImage.onerror = markReady;
+        if (backImage.complete) markReady();
+      }
       return true;
     };
+
+    let hobbyArtPreloadStarted = false;
+    const preloadHobbyArt = () => {
+      if (hobbyArtPreloadStarted) return;
+      hobbyArtPreloadStarted = true;
+      const urls = [...new Set(Object.values(hobbyBackImages))];
+      for (let i = 0; i < urls.length; i += 1) {
+        const im = new Image();
+        if ("fetchPriority" in im) im.fetchPriority = "low";
+        im.decoding = "async";
+        im.src = urls[i];
+      }
+    };
+
+    const hobbiesSlideEl = document.querySelector('.slide[data-key="hobbies"]');
+    if (hobbiesSlideEl && typeof IntersectionObserver === "function") {
+      const obs = new IntersectionObserver(
+        (ents) => {
+          if (ents.some((e) => e.isIntersecting)) {
+            obs.disconnect();
+            preloadHobbyArt();
+          }
+        },
+        { rootMargin: "35% 0px", threshold: 0 }
+      );
+      obs.observe(hobbiesSlideEl);
+    }
+    if (typeof requestIdleCallback === "function") {
+      requestIdleCallback(() => preloadHobbyArt(), { timeout: 3500 });
+    } else {
+      setTimeout(preloadHobbyArt, 600);
+    }
 
     const setFlipped = (on) => {
       if (!on) {
@@ -3678,7 +3728,7 @@
     flipRoot.querySelectorAll(".hobbies-desk__spot[data-hobby]").forEach((spot) => {
       spot.addEventListener("click", () => {
         const key = spot.dataset.hobby;
-        if (!key || !applyBackContent(key)) return;
+        if (!key || !applyBackContent(key, spot)) return;
         lastSpot = spot;
         setFlipped(true);
         const itemKey = hobbyKeyToMonologueItem[key];
