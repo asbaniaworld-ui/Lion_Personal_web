@@ -3078,17 +3078,18 @@
       });
 
       const introRing = introSlide.querySelector(".accent--ring");
-      const introVideo = introSlide.querySelector(".accent--ring__video");
+      const introRingMedia = introSlide.querySelector(".accent--ring__video");
+      const introIsVideo = introRingMedia instanceof HTMLVideoElement;
       let introSoundEngaged = false;
       const setIntroRingHover = (on) => {
         const showGlow = on || introSoundEngaged;
         if (introRing) introRing.classList.toggle("accent--ring--intro-hover", showGlow);
-        if (!introVideo) return;
+        if (!introRingMedia || !introIsVideo) return;
         if (on) {
-          introVideo.play().catch(() => {});
+          introRingMedia.play().catch(() => {});
         } else if (!introSoundEngaged) {
-          introVideo.pause();
-          introVideo.currentTime = 0;
+          introRingMedia.pause();
+          introRingMedia.currentTime = 0;
         }
       };
       zoneWrap.addEventListener("mouseenter", () => {
@@ -3100,10 +3101,12 @@
         setIntroRingHover(false);
       });
       zoneWrap.addEventListener("click", () => {
-        if (!introVideo) return;
+        if (!introRingMedia) return;
         introSoundEngaged = true;
-        introVideo.muted = false;
-        introVideo.play().catch(() => {});
+        if (introIsVideo) {
+          introRingMedia.muted = false;
+          introRingMedia.play().catch(() => {});
+        }
         if (introRing) introRing.classList.add("accent--ring--intro-hover");
       });
 
@@ -3111,10 +3114,10 @@
         introSoundEngaged = false;
         introSlide.classList.remove("is-lion-circle-hover");
         if (introRing) introRing.classList.remove("accent--ring--intro-hover");
-        if (introVideo) {
-          introVideo.pause();
-          introVideo.currentTime = 0;
-          introVideo.muted = true;
+        if (introRingMedia && introIsVideo) {
+          introRingMedia.pause();
+          introRingMedia.currentTime = 0;
+          introRingMedia.muted = true;
         }
       };
     }
