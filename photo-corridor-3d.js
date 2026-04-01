@@ -604,10 +604,13 @@ export function initPhotoCorridor3d() {
     if (stripFrozen()) return;
 
     e.preventDefault();
+    e.stopPropagation();
     scrollTargetVel += wheelDeltaToPixels(e) * (WHEEL_TARGET_VEL + WHEEL_DELTA_EXTRA);
   }
 
-  root.addEventListener("wheel", onGalleryWheel, { passive: false });
+  const wheelOpts = { passive: false, capture: true };
+  root.addEventListener("wheel", onGalleryWheel, wheelOpts);
+  canvas.addEventListener("wheel", onGalleryWheel, wheelOpts);
 
   let capId = null;
   let ptrDownX = 0;

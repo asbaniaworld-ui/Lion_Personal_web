@@ -1,6 +1,18 @@
 (() => {
   "use strict";
 
+  /** 从作品子页返回主页时附带 `#works` 或 `?to=works`，跳过欢迎加载并定位到 Works 横滑段落 */
+  const portfolioDeepTarget = (() => {
+    try {
+      if (new URLSearchParams(window.location.search).get("to") === "works") return "works";
+      const h = (window.location.hash || "").replace(/^#/, "");
+      if (h === "works") return "works";
+    } catch (_) {
+      /* ignore */
+    }
+    return null;
+  })();
+
   const EDIT_EASE = "power2.out";
   const EDIT_DUR = 0.75;
   const EDIT_DUR_SHORT = 0.65;
@@ -243,6 +255,22 @@
 
     runLoaderReadyPipeline = async () => {
       if (loaderPipelineDone) return;
+
+      if (portfolioDeepTarget === "works") {
+        loaderPipelineDone = true;
+        setBar(100);
+        if (loaderHintEl) loaderHintEl.textContent = "Ready";
+        if (loaderEnter) loaderEnter.classList.add("is-ready");
+        if (loaderOverlay && window.gsap) {
+          window.gsap.killTweensOf(loaderOverlay);
+          window.gsap.set(loaderOverlay, { autoAlpha: 0, y: 0 });
+        }
+        if (loaderOverlay) loaderOverlay.classList.add("is-hidden");
+        settleSiteHeader();
+        fireAfterLoaderDismissed();
+        return;
+      }
+
       loaderPipelineDone = true;
 
       let acc = 0;
@@ -3724,6 +3752,15 @@
         });
       }
     }
+  }
+  if (portfolioDeepTarget === "works") {
+    afterLoaderDismissed = () => {
+      requestAnimationFrame(() => {
+        if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+        const wi = slides.findIndex((s) => s.dataset?.key === "works");
+        if (wi >= 0) goTo(wi);
+      });
+    };
   }
   if (!usingGSAP) {
     updateFromScroll();

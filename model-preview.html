@@ -139,6 +139,34 @@
         background: transparent;
       }
 
+      .mv-loading {
+        position: absolute;
+        inset: 0;
+        z-index: 4;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 24px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+        background: rgba(253, 251, 247, 0.88);
+        transition: opacity 0.35s ease, visibility 0.35s ease;
+      }
+
+      .mv-loading.is-done {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .mv-loading__inner {
+        max-width: 280px;
+        line-height: 1.55;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
       .hint {
         position: absolute;
         left: 12px;
@@ -170,7 +198,7 @@
     <div class="wrap">
       <header>
         <div class="header-main">
-          <a class="back-home" href="index.html" aria-label="返回个人主页">← 返回个人主页</a>
+          <a class="back-home" href="index.html#works" aria-label="返回个人主页 Works">← 返回个人主页</a>
           <div class="title">
             <strong>AI建模</strong>
             <span>Rotate, zoom, and inspect the GLB export.</span>
@@ -179,20 +207,27 @@
         <div class="controls">
           <span class="chip">Source</span>
           <select id="src">
-            <option value="models/model.glb">model.glb (original)</option>
-            <option value="models/model-draco.glb">model-draco.glb (Draco)</option>
+            <option value="models/model-draco.glb" selected>model-draco.glb (Draco · 更小)</option>
+            <option value="models/model.glb">model.glb (original · 更大)</option>
           </select>
           <button id="reset" type="button">Reset view</button>
         </div>
       </header>
 
       <main>
+        <div id="mvLoading" class="mv-loading" aria-live="polite" aria-busy="true">
+          <div>
+            <div>正在加载模型…</div>
+            <div class="mv-loading__inner">默认使用 Draco 压缩版（体积更小）。若长时间空白，可在右上角切换为另一份模型。</div>
+          </div>
+        </div>
         <model-viewer
           id="viewer"
-          src="models/model.glb"
+          src="models/model-draco.glb"
+          poster="models/image.png"
           camera-controls
           touch-action="pan-y"
-          shadow-intensity="0.2"
+          shadow-intensity="0.08"
           exposure="1"
           environment-image="neutral"
           camera-orbit="30deg 70deg 2.6m"
@@ -212,8 +247,40 @@
       const viewer = document.getElementById("viewer");
       const src = document.getElementById("src");
       const reset = document.getElementById("reset");
+      const mvLoading = document.getElementById("mvLoading");
+
+      function showModelLoading() {
+        if (!mvLoading) return;
+        mvLoading.classList.remove("is-done");
+        mvLoading.setAttribute("aria-busy", "true");
+        const msg = mvLoading.querySelector(".mv-loading__inner");
+        if (msg) {
+          msg.textContent =
+            "默认使用 Draco 压缩版（体积更小）。若长时间空白，可在右上角切换为另一份模型。";
+        }
+      }
+
+      function hideModelLoading() {
+        if (!mvLoading) return;
+        mvLoading.classList.add("is-done");
+        mvLoading.setAttribute("aria-busy", "false");
+      }
+
+      viewer.addEventListener("load", hideModelLoading);
+      viewer.addEventListener("error", () => {
+        if (!mvLoading) return;
+        mvLoading.classList.remove("is-done");
+        mvLoading.setAttribute("aria-busy", "false");
+        const first = mvLoading.querySelector("div > div:first-child");
+        if (first) first.textContent = "模型加载失败";
+        const msg = mvLoading.querySelector(".mv-loading__inner");
+        if (msg) {
+          msg.textContent = "请尝试切换右上角模型来源，或检查网络后刷新页面。";
+        }
+      });
 
       src.addEventListener("change", () => {
+        showModelLoading();
         viewer.src = src.value;
       });
 
