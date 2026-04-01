@@ -1,0 +1,5 @@
+{
+  "description": "Copy to project.private.config.json locally (DO NOT COMMIT).",
+  "projectname": "shiling",
+  "appid": "YOUR_WECHAT_APPID"
+}
