@@ -561,5 +561,11 @@
   <script src="./libs/gsap/Flip.min.js"></script>
   <!-- defer：在 photo-corridor-3d 模块初始化之后再跑，进度条才能等到真实贴图加载 -->
   <script defer src="script.js"></script>
+  
+  <!-- Vercel Speed Insights -->
+  <script type="module">
+    import { injectSpeedInsights } from 'https://cdn.jsdelivr.net/npm/@vercel/speed-insights@2/dist/index.mjs';
+    injectSpeedInsights();
+  </script>
 </body>
 </html>
