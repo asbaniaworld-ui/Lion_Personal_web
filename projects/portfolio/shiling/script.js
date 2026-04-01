@@ -94,7 +94,7 @@ function loadPublishedItems() {
         cardLink.innerHTML = `
             <div class="item-card">
                 <div class="item-image">
-                    <img src="${item.image}" alt="${item.itemName}" onerror="this.src='https://via.placeholder.com/120x120/4A90E2/FFFFFF?text=${emoji}'">
+                    <img src="${item.image}" alt="${item.itemName}" onerror="this.src='assets/placeholder-item.svg'">
                 </div>
                 <div class="item-info">
                     <div class="item-header">

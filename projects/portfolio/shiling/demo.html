@@ -61,6 +61,33 @@
             background: linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%);
         }
 
+        .back-home-btn {
+            position: fixed;
+            top: 14px;
+            left: 14px;
+            z-index: 1200;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 165, 0, 0.35);
+            background: rgba(0, 0, 0, 0.72);
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+            transition: transform 180ms ease, background 180ms ease;
+        }
+
+        .back-home-btn:hover,
+        .back-home-btn:focus-visible {
+            transform: translateY(-1px);
+            background: rgba(255, 165, 0, 0.16);
+            outline: none;
+        }
+
         /* Header Styles */
         .header {
             width: 100%;
@@ -496,6 +523,7 @@
     </style>
 </head>
 <body>
+    <a class="back-home-btn" href="../../../index.html" aria-label="返回个人主页">← 返回个人主页</a>
     <div class="container">
         <!-- Header -->
         <div class="header">
@@ -541,7 +569,7 @@
             <div class="item-card-link" data-type="found">
                 <div class="item-card">
                     <div class="item-image">
-                        <img src="https://via.placeholder.com/100x100/4A90E2/FFFFFF?text=📱" alt="手机" class="item-image-img">
+                        <img src="assets/placeholder-item.svg" alt="手机" class="item-image-img">
                     </div>
                     <div class="item-info">
                         <div class="item-header">
@@ -560,7 +588,7 @@
             <div class="item-card-link" data-type="found">
                 <div class="item-card">
                     <div class="item-image">
-                        <img src="https://via.placeholder.com/100x100/4A90E2/FFFFFF?text=🎒" alt="背包" class="item-image-img">
+                        <img src="assets/placeholder-item.svg" alt="背包" class="item-image-img">
                     </div>
                     <div class="item-info">
                         <div class="item-header">
@@ -579,7 +607,7 @@
             <div class="item-card-link" data-type="found">
                 <div class="item-card">
                     <div class="item-image">
-                        <img src="https://via.placeholder.com/100x100/4A90E2/FFFFFF?text=💧" alt="水杯" class="item-image-img">
+                        <img src="assets/placeholder-item.svg" alt="水杯" class="item-image-img">
                     </div>
                     <div class="item-info">
                         <div class="item-header">
@@ -598,7 +626,7 @@
             <div class="item-card-link" data-type="lost">
                 <div class="item-card">
                     <div class="item-image">
-                        <img src="https://via.placeholder.com/100x100/E74C3C/FFFFFF?text=📚" alt="书本" class="item-image-img">
+                        <img src="assets/placeholder-item.svg" alt="书本" class="item-image-img">
                     </div>
                     <div class="item-info">
                         <div class="item-header">
@@ -617,7 +645,7 @@
             <div class="item-card-link" data-type="found">
                 <div class="item-card">
                     <div class="item-image">
-                        <img src="https://via.placeholder.com/100x100/4A90E2/FFFFFF?text=🎧" alt="耳机" class="item-image-img">
+                        <img src="assets/placeholder-item.svg" alt="耳机" class="item-image-img">
                     </div>
                     <div class="item-info">
                         <div class="item-header">
@@ -636,7 +664,7 @@
             <div class="item-card-link" data-type="lost">
                 <div class="item-card">
                     <div class="item-image">
-                        <img src="https://via.placeholder.com/100x100/E74C3C/FFFFFF?text=🔑" alt="钥匙" class="item-image-img">
+                        <img src="assets/placeholder-item.svg" alt="钥匙" class="item-image-img">
                     </div>
                     <div class="item-info">
                         <div class="item-header">

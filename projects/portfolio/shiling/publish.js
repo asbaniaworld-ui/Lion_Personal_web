@@ -88,7 +88,7 @@ publishForm.addEventListener('submit', (e) => {
         description: document.getElementById('description').value.trim(),
         location: document.getElementById('location').value.trim(),
         contact: document.getElementById('contact').value.trim(),
-        image: selectedImage || 'https://via.placeholder.com/120x120/4A90E2/FFFFFF?text=📦',
+        image: selectedImage || 'assets/placeholder-item.svg',
         date: new Date().toISOString().split('T')[0], // YYYY-MM-DD 格式
         timestamp: Date.now()
     };
@@ -99,7 +99,7 @@ publishForm.addEventListener('submit', (e) => {
         return;
     }
 
-    if (!formData.image || formData.image === 'https://via.placeholder.com/120x120/4A90E2/FFFFFF?text=📦') {
+    if (!formData.image || formData.image === 'assets/placeholder-item.svg') {
         if (!confirm('您还没有上传图片，确定要继续发布吗？')) {
             return;
         }

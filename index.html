@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Me · Editorial Story</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Gochi+Hand&family=Long+Cang&family=Playfair+Display:wght@500;600;700&family=Source+Serif+4:wght@400;500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/fonts/google/google-fonts.css" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="preload" href="assets/hobbies-desk-sketch.png" as="image" />
 </head>
@@ -129,6 +127,7 @@
             <span class="works-list__item"><strong>《电影世界可视化》</strong> 影像与数据叠在一起，像在调情感的色盘。</span>
             <span class="works-list__item"><strong>《拾领星球》</strong> 一颗用来收集生活碎片的创意小星球。</span>
             <span class="works-list__item"><strong>《数据抓取》</strong> 从小小的爬虫脚本到一张可以翻的表。</span>
+            <span class="works-list__item"><strong>《AI建模》</strong> 把角色放进可交互视窗里，旋转与缩放之间，像在近距离打量一个小宇宙。</span>
           </p>
         </div>
         <div class="showcase" aria-label="Works showcase">
@@ -154,13 +153,21 @@
             </a>
             <a
               class="showcase__item"
-              href="assets/data/douban_movies.csv"
-              download="douban_movies.csv"
+              href="projects/portfolio/data/index.html"
               data-preview-src="assets/portfolio/data.png"
             >
               <span class="showcase__kicker">数据探索 · 2024</span>
               <span class="showcase__title">豆瓣电影数据表</span>
               <span class="showcase__meta">下载 CSV →</span>
+            </a>
+            <a
+              class="showcase__item"
+              href="model-preview.html"
+              data-preview-src="models/image.png"
+            >
+              <span class="showcase__kicker">3D 展示 · 2024</span>
+              <span class="showcase__title">AI建模</span>
+              <span class="showcase__meta">打开交互模型 →</span>
             </a>
           </div>
         </div>
@@ -538,15 +545,14 @@
   <script type="importmap">
     {
       "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        "three": "./libs/three/three.module.js"
       }
     }
   </script>
   <script type="module" src="photo-corridor-3d.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Flip.min.js"></script>
+  <script src="./libs/gsap/gsap.min.js"></script>
+  <script src="./libs/gsap/ScrollTrigger.min.js"></script>
+  <script src="./libs/gsap/Flip.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

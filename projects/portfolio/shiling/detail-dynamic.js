@@ -39,7 +39,7 @@ window.addEventListener('DOMContentLoaded', () => {
         imageSection.src = item.image;
         imageSection.alt = item.itemName;
         imageSection.onerror = function() {
-            this.src = `https://via.placeholder.com/400x400/4A90E2/FFFFFF?text=${emoji}`;
+            this.src = "assets/placeholder-item.svg";
         };
     }
 

@@ -10,7 +10,7 @@
     <link rel="preload" href="./AkzidenzGrotesk-MediumCondItalicAlt.otf" as="font" type="font/otf" crossorigin="anonymous">
     <link rel="preload" href="./SOURCEHANSERIFCN-REGULAR.otf" as="font" type="font/otf" crossorigin="anonymous">
     
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="../../../libs/d3/d3.v7.min.js"></script>
     <style>
         /* 字体定义 */
         @font-face {
@@ -79,6 +79,32 @@
 
         html {
             scroll-behavior: smooth;
+        }
+
+        .back-home-btn {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 12000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            background: rgba(11, 12, 16, 0.72);
+            color: #ffffff;
+            text-decoration: none;
+            font: 600 13px/1 "Source Han Serif CN", "SimSun", serif;
+            backdrop-filter: blur(6px);
+            transition: transform 180ms ease, background 180ms ease;
+        }
+
+        .back-home-btn:hover,
+        .back-home-btn:focus-visible {
+            transform: translateY(-1px);
+            background: rgba(28, 30, 38, 0.9);
+            outline: none;
         }
 
         /* Font Classes */
@@ -734,6 +760,7 @@
     </style>
 </head>
 <body>
+    <a class="back-home-btn" href="../../../index.html" aria-label="返回个人主页">← 返回个人主页</a>
     <!-- 背景动画层 -->
     <div class="background-animation" id="backgroundAnimation"></div>
     
