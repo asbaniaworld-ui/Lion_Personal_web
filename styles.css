@@ -414,12 +414,6 @@ html.is-rail-dragging * {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  opacity: 1;
-  transition: opacity 0.38s ease;
-}
-
-.slide[data-key="hobbies"] .hobbies-desk__back-visual.is-loading .hobbies-desk__back-img {
-  opacity: 0;
 }
 
 .slide[data-key="hobbies"] .hobbies-desk__back-flip-arrow {
@@ -965,7 +959,7 @@ html.is-rail-dragging * {
   min-height: 0;
   overflow: hidden;
   border-radius: 10px;
-  /* 与上层 .accent 的 pointer-events:none 解耦：保证滚轮/指针命中始终落在此栈内 */
+  /* 与上层 .accent 的 pointer-events:none 解耦：保证指针命中始终落在此栈内 */
   pointer-events: auto;
 }
 
