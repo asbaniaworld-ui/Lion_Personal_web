@@ -11,6 +11,8 @@
     <link rel="preload" href="./SOURCEHANSERIFCN-REGULAR.otf" as="font" type="font/otf" crossorigin="anonymous">
     
     <script src="../../../libs/d3/d3.v7.min.js"></script>
+    <!-- file:// 下 fetch 无法读本地 CSV；内嵌前 51 条影片作示例，http 时仍以 douban_movies.csv 为准 -->
+    <script src="../../../assets/data/douban_movies_embedded.js"></script>
     <style>
         /* 字体定义 */
         @font-face {
@@ -1330,8 +1332,28 @@
             }
         });
 
+        function applyEmbeddedDoubanSample(reasonLabel) {
+            const embedded = typeof window !== 'undefined' && window.__EMBEDDED_DOUBAN_CSV__;
+            if (!embedded) return false;
+            csvData = embedded;
+            updateCSVSelectorState(true);
+            const statusEl = document.getElementById('csvLoadStatus');
+            if (statusEl) {
+                statusEl.textContent =
+                    reasonLabel ||
+                    '已加载：内嵌示例数据（约 50 条）。完整数据请用本地服务器打开或「更换本地 CSV」。';
+            }
+            renderAllCharts();
+            return true;
+        }
+
         async function loadEmbeddedDoubanCsv() {
             const statusEl = document.getElementById('csvLoadStatus');
+            if (location.protocol === 'file:') {
+                if (applyEmbeddedDoubanSample('已加载：内嵌示例（file:// 无法 fetch 本地文件，完整表请用 http 打开或选 CSV）')) {
+                    return;
+                }
+            }
             try {
                 const res = await fetch(DEFAULT_DOUBAN_CSV_URL, { cache: 'no-store' });
                 if (!res.ok) throw new Error(res.status + ' ' + res.statusText);
@@ -1341,6 +1363,7 @@
                 renderAllCharts();
             } catch (err) {
                 console.error('加载示例 CSV 失败:', err);
+                if (applyEmbeddedDoubanSample()) return;
                 updateCSVSelectorState(false);
                 if (statusEl) {
                     statusEl.textContent =

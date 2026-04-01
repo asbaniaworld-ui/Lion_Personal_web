@@ -10,6 +10,7 @@ import * as THREE from "three";
  * preventDefault 仅在驱动条带时调用：灯箱动画/展开中不拦截，避免误伤整页纵向滚动。
  */
 
+/** 相对本文件解析，避免 file:// 与部分环境下以错误基路径解析相对 URL。 */
 const PHOTO_URLS = [
   "./images/微信图片_20260326184253_1188_681.jpg",
   "./images/微信图片_20260326184254_1189_681.jpg",
@@ -30,7 +31,7 @@ const PHOTO_URLS = [
   "./images/微信图片_20260326184326_1205_681.jpg",
   "./images/微信图片_20260326184326_1206_681.jpg",
   "./images/微信图片_20260326184328_1207_681.jpg",
-];
+].map((rel) => new URL(rel, import.meta.url).href);
 
 /** 去掉末尾与首张重复的 URL，避免 `i % N` 滚动接缝处出现连续同一张图。 */
 const N_PHOTOS = PHOTO_URLS.length;
