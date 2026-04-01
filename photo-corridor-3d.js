@@ -1,13 +1,9 @@
 import * as THREE from "three";
 
 /**
- * Right-column gallery: fixed magazine camera, 16:9 photo planes on a Z-depth strip; wheel-only scroll (no drag-to-scroll).
- * Hover: ray on a photo (yaw only toward camera). Click to open: front card, fully in frame. No stack/peek or hover pull-out.
- * Scroll uses a smoothed follower so motion eases—photos drift away and the next one eases in.
- * Idle: fixed STRIP_IDLE_YAW (no per-frame billboard). Hover only on pointer ray hit: lerp to face camera.
- * Auto-scroll when pointer is outside #photoCorridor3dRoot; pause anywhere over the gallery column (canvas + chrome); resume on leave.
- * Wheel: listener on root (bubble) so hint/progress strip works too. Only #photoCorridor3dRoot 子树会触发，不会全局锁死网页滚轮。
- * preventDefault 仅在驱动条带时调用：灯箱动画/展开中不拦截，避免误伤整页纵向滚动。
+ * Right-column gallery: fixed magazine camera, 16:9 photo planes on a Z-depth strip.
+ * Hover: ray on a photo (yaw only toward camera). Click to open: front card, fully in frame.
+ * Strip auto-advances continuously (smooth follower); no wheel / drag-to-scroll. Lightbox 展开时条带冻结。
  */
 
 /** 相对本文件解析，避免 file:// 与部分环境下以错误基路径解析相对 URL。 */
@@ -55,8 +51,8 @@ const FOV = 32;
 
 /** 整条画廊共用的静止偏角（弧度）；仅悬停在照片上时才过渡到面向用户。 */
 const IDLE_YAW_TILT = -0.14;
-/** 自动轮播速度。仅当指针不在 canvas 且无 lightbox 时生效。 */
-const AUTO_PLAY_SCROLL_PER_SEC = 0.38;
+/** 自动轮播速度（纯自动，展开灯箱时暂停）。 */
+const AUTO_PLAY_SCROLL_PER_SEC = 0.42;
 /** 悬停时：仅朝向 blend 时长（秒）；从 STRIP_IDLE_YAW 过渡到正对相机。 */
 const HOVER_TWEEN_SEC = 0.58;
 
@@ -67,13 +63,6 @@ const CLOSE_MS = 780;
 const VIEW_NDC_MARGIN = 0.042;
 /** scroll 跟随 scrollTarget 的响应速度（越大越跟手）。 */
 const SCROLL_SMOOTH_LAMBDA = 10.0;
-/** Momentum on logical scroll target (decays each frame). */
-const SCROLL_TARGET_VEL_DAMP = 0.96;
-/** Wheel 模型系数（规格 0.01）+ 0.005 = 每刻度注入 0.015 × deltaY。 */
-const WHEEL_TARGET_VEL = 0.01;
-const WHEEL_DELTA_EXTRA = 0.005;
-/** Integrates target velocity into scrollTarget. */
-const SCROLL_TARGET_INTEGRATE = 9;
 
 const _halfCardW = CARD_W * 0.5;
 const _halfCardH = CARD_H * 0.5;
@@ -286,10 +275,6 @@ export function initPhotoCorridor3d() {
   let scroll = 0;
   /** Logical scroll; `scroll` eases toward this for slower, readable transitions. */
   let scrollTarget = 0;
-  let scrollTargetVel = 0;
-
-  /** 指针在整条右侧画廊栏内（canvas + 下方提示/进度，不含栏外）：暂停自动轮播。 */
-  let isPointerOverGallery = false;
 
   const totalLen = STRIP_COUNT * SPACING;
   const halfLen = totalLen * 0.5;
@@ -307,7 +292,7 @@ export function initPhotoCorridor3d() {
   const galleryVis = createVisibilityThrottle(root);
 
   /**
-   * 仅悬停：从固定廊道朝向 STRIP_IDLE_YAW 过渡到该片 billboardYaw（仅由 pointermove 调度 raycaster，滚轮不触发射线以省开销）。
+   * 仅悬停：从固定廊道朝向 STRIP_IDLE_YAW 过渡到该片 billboardYaw（由 pointermove 调度 raycaster）。
    */
   function hoverFacingYaw(mesh, blend) {
     const b = THREE.MathUtils.clamp(blend, 0, 1);
@@ -499,7 +484,6 @@ export function initPhotoCorridor3d() {
     }
 
     applyScrollZOnly();
-    scrollTargetVel = 0;
     scrollTarget = scroll;
 
     const dir = rayFromGalleryCenter(canvas, camera);
@@ -594,25 +578,6 @@ export function initPhotoCorridor3d() {
   const ro = new ResizeObserver(resize);
   ro.observe(root);
 
-  function wheelDeltaToPixels(e) {
-    let dy = e.deltaY;
-    if (e.deltaMode === 1) dy *= 16;
-    else if (e.deltaMode === 2) dy *= Math.max(320, root.clientHeight || 480);
-    return dy;
-  }
-
-  function onGalleryWheel(e) {
-    if (stripFrozen()) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-    scrollTargetVel += wheelDeltaToPixels(e) * (WHEEL_TARGET_VEL + WHEEL_DELTA_EXTRA);
-  }
-
-  const wheelOpts = { passive: false, capture: true };
-  root.addEventListener("wheel", onGalleryWheel, wheelOpts);
-  canvas.addEventListener("wheel", onGalleryWheel, wheelOpts);
-
   let capId = null;
   let ptrDownX = 0;
   let ptrDownY = 0;
@@ -620,13 +585,6 @@ export function initPhotoCorridor3d() {
   let ptrLastY = 0;
   let ptrDownT = 0;
   let ptrDragAcc = 0;
-
-  root.addEventListener("pointerenter", () => {
-    isPointerOverGallery = true;
-  });
-  root.addEventListener("pointerleave", () => {
-    isPointerOverGallery = false;
-  });
 
   canvas.addEventListener("pointerdown", (e) => {
     if (!rootVisible(root) || e.button !== 0) return;
@@ -758,17 +716,8 @@ export function initPhotoCorridor3d() {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
 
-    /**
-     * 滚动积分不得依赖 rootVisible：离屏时仍要积分 scrollTargetVel。
-     * 渲染也不做 visibility 节流：rootVisible 过严会长期不调 render，画面冻结像「滚轮无效」。
-     */
     if (!stripFrozen()) {
-      if (!isPointerOverGallery && !lb) {
-        scrollTarget += AUTO_PLAY_SCROLL_PER_SEC * dt;
-      }
-
-      scrollTargetVel *= Math.pow(SCROLL_TARGET_VEL_DAMP, dt * 60);
-      scrollTarget += scrollTargetVel * dt * SCROLL_TARGET_INTEGRATE;
+      scrollTarget += AUTO_PLAY_SCROLL_PER_SEC * dt;
 
       const smooth = 1 - Math.exp(-dt * SCROLL_SMOOTH_LAMBDA);
       scroll += shortestPeriodDelta(scroll, scrollTarget, totalLen) * smooth;

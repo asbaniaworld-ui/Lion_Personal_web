@@ -651,7 +651,7 @@
     const onWheel = (e) => {
       if (state.open) return;
       if (!aboutIsActive()) return;
-      /** 右侧 Three.js 画廊 (#photoCorridor3dRoot) 自管滚轮；避免与拍立得传送带叠加强度或抢默认行为 */
+      /** 右侧 3D 廊道不驱动拍立得传送带（滚轮交给页面/左侧区域） */
       if (e.target?.closest?.("#photoCorridor3dRoot")) return;
       state.vel += clampFn(-38, 38, (e.deltaY || 0) * 0.22);
     };
